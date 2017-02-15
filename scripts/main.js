@@ -4,14 +4,18 @@ var _       = require('lodash'),
 
 module.exports = function (avalanchebot) {
     avalanchebot.hear(/http/i, function (bot) {
+        console.log(bot);
         console.log(bot.envelope.room);
-        var url = bot.match[0].input;
-        console.log(url);
+        var message = bot.message;
+        var url = message.text;
+
         var testUrl = url.match(/(http:[^\s]+)/);
         if (!testUrl) {
             testUrl = url.match(/(https:[^\s]+)/);
         }
         var onlyUrl = testUrl && testUrl[1];
+        var rex = /(<([^>]+)>)/ig;
+        onlyUrl = onlyUrl.replace(rex, "");
         console.log("URL:" + onlyUrl);
 
         if (onlyUrl) {
