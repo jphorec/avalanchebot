@@ -4,7 +4,6 @@ var _       = require('lodash'),
 
 module.exports = function (avalanchebot) {
     avalanchebot.hear(/http/i, function (bot) {
-        console.log(bot);
         console.log(bot.envelope.room);
         var message = bot.message;
         var url = message.text;
