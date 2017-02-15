@@ -8,22 +8,22 @@ module.exports = function (avalanchebot) {
         var message = bot.message;
         var url = message.text;
 
-        var testUrl = url.match(/(http:[^\s]+)/);
-        if (!testUrl) {
-            testUrl = url.match(/(https:[^\s]+)/);
-        }
-        var onlyUrl = testUrl && testUrl[1];
-        var rex = /(<([^>]+)>)/ig;
-        onlyUrl = onlyUrl.replace(rex, "");
+        var testUrl = url.match(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/);
+        var testTitle = url.match(/<a [^>]+>([^<]+)<\/a>/);
+        console.log(testUrl);
+        var onlyUrl = testUrl && testUrl[0];
+        var title = testTitle && testTitle[1];
+        console.log("Title: " + title);
+
         console.log("URL:" + onlyUrl);
 
-        if (onlyUrl) {
+        if (onlyUrl && title) {
             request({
                 url: 'http://jphorec:password@slalom-avalanche.herokuapp.com/skibot/posts', //URL to hit
                 method: 'PUT',
                 //Lets post the following key/values as form
                 json: {
-                    title: onlyUrl,
+                    title: title,
                     url: onlyUrl
                 }
             }, function(error, response, body){
