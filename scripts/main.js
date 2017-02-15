@@ -24,7 +24,8 @@ module.exports = function (avalanchebot) {
                 //Lets post the following key/values as form
                 json: {
                     title: title,
-                    url: onlyUrl
+                    url: onlyUrl,
+                    thumbnailUrl: onlyUrl
                 }
             }, function(error, response, body){
                 if(error) {
