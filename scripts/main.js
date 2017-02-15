@@ -7,21 +7,21 @@ module.exports = function (avalanchebot) {
         console.log(bot.envelope.room);
         var url = bot.match[0].input;
         console.log(url);
-        /*var testUrl = message.match(/(http:[^\s]+)/);
+        var testUrl = url.match(/(http:[^\s]+)/);
         if (!testUrl) {
-            testUrl = message.match(/(https:[^\s]+)/);
+            testUrl = url.match(/(https:[^\s]+)/);
         }
         var onlyUrl = testUrl && testUrl[1];
         console.log("URL:" + onlyUrl);
-        */
-        if (url) {
+
+        if (onlyUrl) {
             request({
                 url: 'http://jphorec:password@slalom-avalanche.herokuapp.com/skibot/posts', //URL to hit
                 method: 'PUT',
                 //Lets post the following key/values as form
                 json: {
-                    title: url,
-                    url: url
+                    title: onlyUrl,
+                    url: onlyUrl
                 }
             }, function(error, response, body){
                 if(error) {
