@@ -5,16 +5,18 @@ var _       = require('lodash'),
 module.exports = function (avalanchebot) {
     avalanchebot.hear(/http/i, function (bot) {
         var debug = false;
-        console.log(bot.envelope.room);
+
+        var room = bot.envelope.room;
         var message = bot.message;
         var url = message.text;
 
         var testUrl = url.match(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/);
-        var strongTitle = url.match(/(<a href="([^"]+)">([^<]+)<\/a>|<a href="([^"]+)"><strong>([^<]+)<\/strong><\/a>)/);
+        var strongTitle = url.match(/(<a href="([^"]+)">([^<]+)<\/a>)|(<a href="([^"]+)"><strong>([^<]+)<\/strong><\/a>)/);
         var anchorTitle = url.match(/<a [^>]+>([^<]+)<\/a>/);
         var imageTag = url.match(/(<img src="([^"]+)"([^<]+)\/>)/);
         //console.log(testUrl);
         //console.log(noLinkyUrl);
+        console.log(room);
         console.log("anchorTitle: " + anchorTitle);
         console.log("strongTitle: " + strongTitle);
         console.log("ImageTag: " + imageTag);
@@ -41,7 +43,8 @@ module.exports = function (avalanchebot) {
                         author: 'jphorec',
                         userId: 'J3SCeLpgDcS5RC9bT',
                         createdAt: createDate,
-                        postedAt: createDate
+                        postedAt: createDate,
+                        room: room
                     }
                 }, function(error, response, body){
                     if(error) {
